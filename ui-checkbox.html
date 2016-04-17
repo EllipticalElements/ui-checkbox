@@ -1,19 +1,30 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
 <link rel="import" href="../ui-behaviors/checkbox.html">
 
-<ui-checkbox parse-attr definition>
+<dom-module id="ui-checkbox">
     <template>
         <input type="checkbox" id="[[data-id]]" name="[[name]]" data-bind="[[bind]]" [[required]]>
         <label for="[[data-id]]">[[label]]</label>
     </template>
-</ui-checkbox>
+</dom-module>
+
 <script>
-Elliptical(function(){
-    $.element('ui-checkbox',[Elliptical.Behaviors.Checkbox],{
-        options: {
-            eventType:'ui.checkbox.change'
+
+    Polymer({
+
+        is: 'ui-checkbox',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Checkbox],
+
+        properties: {
+           eventType:{
+               type:String,
+               value:'ui.checkbox.change'
+           }
         },
 
-        _initElement: function(){
+        ready:function(){
             var checked=this.element.attr('checked');
             if(checked){
                 var input=this.element.find('input');
@@ -23,5 +34,5 @@ Elliptical(function(){
         }
 
     });
-});
+
 </script>
